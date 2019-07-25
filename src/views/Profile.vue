@@ -4,16 +4,17 @@
       <h2 class="deep-purple-text center">{{profile.alias}}'s Wall</h2>
       <ul class="comments collection">
         <li v-for="(comment,index) in comments" v-bind:key="index">
-          <div class="deep-purple-text">{{comment.from}}</div>
-          <div class="grey-text text-darken-2">{{comment.content}}</div>
+          <div class="deep-purple-text">{{comment.from}}:</div>
+          <div class="grey-text text-darken-2 content-block">{{comment.content}}</div>
         </li>
       </ul>
       <form v-on:submit.prevent="addComment">
         <div class="field">
-          <label for="comment">Add a comment:</label>
+          <label for="comment">Add a comment (click 'Send' or press 'enter'):</label>
           <input type="text" name="comment" v-model="newComment" />
           <p v-if="feedback" class="red-text center">{{feedback}}</p>
         </div>
+        <button class="btn teal">Send</button>
       </form>
     </div>
   </div>
@@ -36,7 +37,7 @@ export default {
   },
   created() {
     let ref = db.collection("users");
-    console.log(firebase.auth().currentUser.uid)
+    console.log(firebase.auth().currentUser.uid);
     //get current user
     ref
       .where("user_id", "==", firebase.auth().currentUser.uid)
@@ -89,19 +90,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  .profile {
-    .card {
-      padding:20px;
-      margin-top:60px;
-    }
-    h2 {
-      font-size:2em;
-      margin-top:0;
-    }
-    li {
-      padding:10px;
-      border:1px solid #eee;
-    }
+.profile {
+  .card {
+    padding: 20px;
+    margin-top: 60px;
   }
+  h2 {
+    font-size: 2em;
+    margin-top: 0;
+  }
+  li {
+    padding: 10px;
+    border: 1px solid #eee;
+  }
+  button {
+    margin: 30px auto;
+    display: block;
+  }
+  .content-block {
+    margin-left: 10px;
+  }
+}
 </style>
 
